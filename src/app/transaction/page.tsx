@@ -1,9 +1,11 @@
 'use client';
 
+import { FunctionComponent } from 'react';
 import { usePrivy, useWallets } from '@privy-io/react-auth';
 import Web3 from 'web3';
 import { useSearchParams } from 'next/navigation';
-import LoginWithCoinbaseButton from '@/components/loginWithCoinbaseButton';
+import { Suspense } from 'react'
+import LoginWithCoinbaseButton from '@/components/LoginWithCoinbaseButton';
 
 interface CustomTransactionReceipt {
     blockHash: string;
@@ -22,10 +24,28 @@ interface CustomTransactionReceipt {
     contractAddress: string | null | undefined;
 }
 
+interface PaymentContentProps {
+    ready: boolean;
+    authenticated: boolean;
+    login: () => void;
+    logout: () => void;
+    wallets: any[];
+}
+
 function PaymentPage() {
-    const searchParams = useSearchParams();
     const { ready, authenticated, login, logout } = usePrivy();
     const { wallets } = useWallets();
+
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <PaymentContent ready={ready} authenticated={authenticated} login={login} logout={logout} wallets={wallets} />
+        </Suspense>
+    );
+}
+
+
+const PaymentContent: FunctionComponent<PaymentContentProps> = ({ ready, authenticated, login, logout, wallets }) => {
+    const searchParams = useSearchParams();
 
     const walletAddress = searchParams.get('address') || "0xCA430AD5C04Afe38A4388e88A67Ca35fd405b773";
     const price = searchParams.get('price') || "10";
