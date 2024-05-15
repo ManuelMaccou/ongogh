@@ -73,6 +73,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             sameSite: "none",
             path: "/",
             secure: true,
+            domain: "https://ongogh-production.up.railway.app"
             },
         },
     },
