@@ -12,6 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         })
     ],
     debug: true,
+    trustHost:  true,
     cookies: {
         pkceCodeVerifier: {
             name: "next-auth.pkce.code_verifier",
