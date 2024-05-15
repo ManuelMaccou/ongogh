@@ -65,6 +65,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     ],
     debug: true,
     trustHost:  true,
+    cookies: {
+        pkceCodeVerifier: {
+            name: "next-auth.pkce.code_verifier",
+            options: {
+            httpOnly: true,
+            sameSite: "none",
+            path: "/",
+            secure: true,
+            },
+        },
+    },
     callbacks: {
         async jwt({ token, account }) {
             console.log("JWT callback - account:", account);
