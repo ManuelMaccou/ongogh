@@ -56,8 +56,6 @@ console.log("next auth url:", process.env.NEXTAUTH_URL);
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
         Coinbase({
-            clientId: process.env.COINBASE_CLIENT_ID || '',
-            clientSecret: process.env.COINBASE_CLIENT_SECRET || '',
             authorization: { 
                 params: { 
                     scope: "wallet:user:read,wallet:accounts:read,wallet:transactions:send"
