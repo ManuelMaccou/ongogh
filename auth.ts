@@ -64,6 +64,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }),
     ],
     debug: true,
+    trustHost:  true,
     callbacks: {
         async jwt({ token, account }) {
             console.log("JWT callback - account:", account);
